@@ -1,0 +1,176 @@
+:root {
+  --background-color: forestgreen;
+  --card-border-color: cornsilk;
+  --cover-color: pink;
+  --card-outline-hover: lightblue;
+  --card-wrong: red;
+  --card-right: greenyellow;
+  --timer-warning: red;
+  --control-color: aliceblue;
+  --control-color-hover: lightblue;
+  --controls-text-color: aliceblue;
+}
+
+html,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.body {
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: var(--background-color);
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.app-game {
+  display: grid;
+  grid-template-columns: minmax(150px, max-content) 1fr;
+  grid-template-areas:
+    "controls card-list";
+    align-items: flex-start;
+  gap: 40px;
+}
+
+.app-game__cotrols {
+  grid-area: controls;
+  display: grid;
+  gap: 10px;
+  color: var(--controls-text-color);
+}
+
+.app-game__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.app-game__input {
+  width: 30px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--control-color);
+  text-align: center;
+}
+
+.app-game__input:hover {
+  background-color: var(--control-color-hover);
+}
+
+.app-game__timer {
+  text-align: center;
+  font-size: 30px;
+}
+
+.app-game__timer--warning {
+  color: var(--timer-warning);
+}
+
+.app-game__button {
+  min-width: 150px;
+  padding: 5px;
+  font-family: sans-serif;
+  background-color: var(--control-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.app-game__button:hover {
+  background-color: var(--control-color-hover);
+}
+
+.app-game__cards-list {
+
+  grid-area: card-list;
+  justify-self: center;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 4), 1fr);
+  grid-template-rows: repeat(var(--rows, 4), 1fr);
+  gap: calc(-5px * max(var(--rows, 4), var(--columns, 4)) + 60px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.app-game__card {
+  position: relative;
+  width: calc(-6.25px * max(var(--rows, 4), var(--columns, 4)) + 112.5px);
+  height: calc(-6.25px * max(var(--rows, 4), var(--columns, 4)) + 112.5px);
+  border: 2px solid var(--card-border-color);
+  border-radius: 10px;
+  background-color: var(--cover-color);
+  transition: 0.3s all;
+}
+
+.app-game__card:hover {
+  box-shadow: 0 0 0 4px var(--card-outline-hover);
+  cursor: pointer;
+}
+
+.app-game__card--open {
+  background: none;
+}
+
+.app-game__card--open:hover {
+  box-shadow: none;
+  cursor: initial;
+}
+
+.app-game__card--open::before {
+  content: attr(data-content);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(-3.75px * max(var(--rows, 4), var(--columns, 4)) + 67.5px);
+  user-select: none;
+}
+
+.app-game__card--checked,
+.app-game__card--checked:hover {
+  box-shadow: 0 0 0 4px var(--card-outline-hover);
+}
+
+.app-game__card--wrong,
+.app-game__card--wrong:hover {
+  box-shadow: 0 0 0 4px var(--card-wrong);
+}
+
+.app-game__card--right,
+.app-game__card--right:hover {
+  box-shadow: 0 0 0 4px var(--card-right);
+}
+
+.app-game__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  background-color:rgba(0, 0, 0, 0.3);
+}
+
+.app-game__overlay--active {
+  display: flex;
+}
